@@ -1,0 +1,1649 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camp AIR Learning Hub</title>
+  <style>
+    :root {
+      --ms-blue: #0078d4;
+      --ms-blue-dark: #005ea6;
+      --ink: #1f2937;
+      --muted: #5f6b7a;
+      --surface: #ffffff;
+      --surface-soft: #f5f8fc;
+      --border: #d9e2ec;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      --shadow-hover: 0 24px 48px rgba(15, 23, 42, 0.14);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --week0: #64748b;
+      --week1: #0078d4;
+      --week2: #27ae60;
+      --week3: #7c3aed;
+      --recording: #3498db;
+      --presentation: #f39c12;
+      --practice: #27ae60;
+      --additional: #8e44ad;
+      --hero-gradient: linear-gradient(135deg, #e8f3ff 0%, #ffffff 45%, #eef7ff 100%);
+      --grid-gap: 1.25rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", SegoeUI, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(0,120,212,0.10), transparent 30%),
+        radial-gradient(circle at top right, rgba(124,58,237,0.08), transparent 25%),
+        linear-gradient(180deg, #f7fbff 0%, #f4f8fc 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page-shell {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--hero-gradient);
+      border: 1px solid rgba(0, 120, 212, 0.14);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: 40px;
+      margin-bottom: 28px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(2px);
+    }
+
+    .hero::before {
+      width: 260px;
+      height: 260px;
+      background: rgba(0, 120, 212, 0.09);
+      right: -80px;
+      top: -70px;
+    }
+
+    .hero::after {
+      width: 180px;
+      height: 180px;
+      background: rgba(124, 58, 237, 0.08);
+      right: 140px;
+      bottom: -60px;
+    }
+
+    .brand-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(0, 120, 212, 0.14);
+      color: var(--ms-blue-dark);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 8px 24px rgba(0, 120, 212, 0.08);
+    }
+
+    .brand-mark {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--ms-blue), #49a6ff);
+      box-shadow: 0 0 0 6px rgba(0, 120, 212, 0.08);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      margin-top: 26px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ms-blue);
+      font-weight: 700;
+      font-size: 0.82rem;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-copy p {
+      margin: 16px 0 0;
+      font-size: 1.08rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 760px;
+    }
+
+    .hero-metrics {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .metric {
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      border-radius: 18px;
+      padding: 18px;
+      backdrop-filter: blur(6px);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.65rem;
+      color: var(--ink);
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 16px;
+      z-index: 30;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .nav-links,
+    .filter-buttons,
+    .search-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-link,
+    .filter-btn,
+    .jump-chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.09);
+      background: #fff;
+      color: var(--ink);
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover,
+    .filter-btn:hover,
+    .jump-chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .nav-link.active,
+    .filter-btn.active {
+      background: var(--ms-blue);
+      color: #fff;
+      border-color: var(--ms-blue);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: min(100%, 340px);
+      flex: 1;
+    }
+
+    .search-box input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.09);
+      padding: 13px 18px 13px 42px;
+      font: inherit;
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+      box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.03);
+    }
+
+    .search-box::before {
+      content: "ðŸ”Ž";
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.95rem;
+      opacity: 0.72;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 104px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.93);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .panel h2,
+    .panel h3,
+    .section-heading h2 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .panel p,
+    .section-heading p,
+    .week-summary,
+    .session-purpose,
+    .muted,
+    .framework-note,
+    .card-subtle {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .progress-block {
+      display: grid;
+      gap: 14px;
+    }
+
+    .progress-stat strong {
+      font-size: 2rem;
+      display: block;
+      color: var(--ms-blue);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 12px;
+      background: #e7eef6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--ms-blue), #58b1ff);
+      border-radius: inherit;
+      transition: width 0.35s ease;
+    }
+
+    .week-mini-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .week-mini {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      background: #f7fbff;
+      border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, 0.05);
+    }
+
+    .week-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .legend-item,
+    .badge,
+    .tag,
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .badge.recording, .legend-item.recording { background: rgba(52,152,219,0.12); color: #1f6fa5; }
+    .badge.presentation, .legend-item.presentation { background: rgba(243,156,18,0.14); color: #9c6504; }
+    .badge.practice, .legend-item.practice { background: rgba(39,174,96,0.14); color: #1f7d48; }
+    .badge.additional, .legend-item.additional { background: rgba(142,68,173,0.14); color: #6f3194; }
+
+    .framework-section,
+    .notable-section,
+    .weeks-section {
+      display: grid;
+      gap: 22px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-heading .kicker {
+      color: var(--ms-blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.78rem;
+      margin-bottom: 8px;
+    }
+
+    .framework-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .framework-card {
+      position: relative;
+      background: #fff;
+      border-radius: 24px;
+      padding: 22px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .framework-card:hover,
+    .session-card:hover,
+    .day-card:hover,
+    .notable-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .framework-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      background: var(--accent, var(--ms-blue));
+    }
+
+    .framework-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      flex-wrap: wrap;
+    }
+
+    .framework-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .framework-tools {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tool-chip {
+      background: #f5f8fc;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      color: var(--ink);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .example-box {
+      margin-top: 16px;
+      background: linear-gradient(180deg, rgba(248,250,252,0.95), rgba(241,245,249,0.95));
+      border: 1px solid rgba(15, 23, 42, 0.05);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .framework-note {
+      font-style: italic;
+      text-align: right;
+      margin-top: 6px;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 18px;
+    }
+
+    .week-card {
+      background: rgba(255,255,255,0.95);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .week-header {
+      position: relative;
+      padding: 24px 26px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      cursor: pointer;
+      border: 0;
+      width: 100%;
+      text-align: left;
+      background: linear-gradient(90deg, rgba(255,255,255,0.96), rgba(248,251,255,0.96));
+    }
+
+    .week-header::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 9px;
+      background: var(--week-accent, var(--ms-blue));
+    }
+
+    .week-title-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .week-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--week-accent) 12%, white);
+      color: var(--week-accent);
+    }
+
+    .week-header h3 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
+
+    .week-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .week-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      background: #fff;
+      color: var(--week-accent);
+      font-size: 1.3rem;
+      font-weight: 800;
+      transition: transform 0.28s ease, background 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .week-card.open .week-toggle {
+      transform: rotate(180deg);
+      background: color-mix(in srgb, var(--week-accent) 12%, white);
+    }
+
+    .week-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.48s ease;
+    }
+
+    .week-inner {
+      padding: 0 26px 26px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .day-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .day-card {
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      border-radius: 22px;
+      border: 1px solid rgba(15, 23, 42, 0.07);
+      padding: 22px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .day-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .day-title {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .session-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--grid-gap);
+    }
+
+    .session-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: #fff;
+      border-radius: 22px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .session-card.hidden {
+      display: none;
+    }
+
+    .session-card.completed {
+      border-color: rgba(39, 174, 96, 0.42);
+      box-shadow: 0 16px 34px rgba(39, 174, 96, 0.12);
+    }
+
+    .session-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 14px;
+    }
+
+    .session-title {
+      margin: 0;
+      font-size: 1.06rem;
+      line-height: 1.35;
+    }
+
+    .complete-toggle {
+      appearance: none;
+      border: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: #edf3fa;
+      color: #a7b2bf;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .session-card.completed .complete-toggle {
+      background: rgba(39, 174, 96, 0.14);
+      color: #1f7d48;
+    }
+
+    .resource-list,
+    .additional-links-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .resource-link,
+    .additional-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #f7fbff;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      border-radius: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .resource-link:hover,
+    .additional-link:hover {
+      transform: translateX(2px);
+      box-shadow: 0 12px 20px rgba(15, 23, 42, 0.06);
+      border-color: rgba(0, 120, 212, 0.18);
+    }
+
+    .resource-main {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .resource-text {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .resource-text strong,
+    .resource-text span,
+    .cohort-tab-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .resource-text span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .arrow {
+      color: var(--ms-blue);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .cohort-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .cohort-tab {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #f6f9fd;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .cohort-tab.active {
+      background: var(--ms-blue);
+      color: #fff;
+      border-color: var(--ms-blue);
+    }
+
+    .cohort-panel { display: none; }
+    .cohort-panel.active { display: block; }
+
+    .notable-card {
+      background: #fff;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .footer {
+      margin-top: 28px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 28px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .footer-link {
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: #f7fbff;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      font-weight: 600;
+    }
+
+    .empty-state {
+      display: none;
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(255,255,255,0.9);
+      border-radius: 22px;
+      border: 1px dashed rgba(15, 23, 42, 0.14);
+    }
+
+    @media (max-width: 1180px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; order: 2; }
+      .hero-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell { padding: 16px; }
+      .hero { padding: 26px 22px; border-radius: 26px; }
+      .topbar { top: 10px; padding: 14px; border-radius: 18px; }
+      .hero-metrics { grid-template-columns: 1fr; }
+      .week-header,
+      .week-inner,
+      .panel,
+      .day-card,
+      .session-card,
+      .framework-card,
+      .notable-card,
+      .footer { padding-left: 18px; padding-right: 18px; }
+      .session-grid { grid-template-columns: 1fr; }
+      .week-header { grid-template-columns: 1fr; }
+      .week-toggle { width: 46px; height: 46px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero" id="top">
+      <div class="brand-row">
+        <div class="brand-badge">
+          <span class="brand-mark"></span>
+          Workforce Acceleration Team
+        </div>
+        <div class="status-pill" style="background: rgba(0,120,212,0.12); color: var(--ms-blue-dark);">WFA Learning Portal</div>
+      </div>
+      <div class="hero-copy">
+        <div class="eyebrow">Camp AIR â€¢ Learning Experience</div>
+        <h1>Camp AIR Learning Hub</h1>
+        <p>Your complete guide to the Camp AIR immersion experience â€” recordings, presentations, and hands-on practice organized by week.</p>
+      </div>
+      <div class="hero-metrics">
+        <div class="metric"><strong>4</strong><span>Learning phases across Week 0â€“3</span></div>
+        <div class="metric"><strong>15+</strong><span>Core sessions, demos, and labs</span></div>
+        <div class="metric"><strong>3</strong><span>Resource types: recording, presentation, practice</span></div>
+        <div class="metric"><strong>1</strong><span>Beautiful hub for one immersive journey</span></div>
+      </div>
+    </header>
+
+    <div class="topbar">
+      <div class="nav-links" aria-label="Quick navigation">
+        <a class="nav-link" href="#framework">Framework</a>
+        <a class="nav-link" href="#week-0">Week 0</a>
+        <a class="nav-link" href="#week-1">Week 1</a>
+        <a class="nav-link" href="#week-2">Week 2</a>
+        <a class="nav-link" href="#week-3">Week 3</a>
+        <a class="nav-link" href="#notable-recordings">Notable</a>
+      </div>
+      <div class="search-row">
+        <div class="search-box">
+          <input id="searchInput" type="search" placeholder="Search sessions, tools, days, or resources..." aria-label="Search sessions" />
+        </div>
+        <div class="filter-buttons" aria-label="Resource type filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="recording">ðŸŽ¬ Recording</button>
+          <button class="filter-btn" data-filter="presentation">ðŸ“Š Presentation</button>
+          <button class="filter-btn" data-filter="practice">ðŸ› ï¸ Practice</button>
+          <button class="filter-btn" data-filter="additional">ðŸ”— Additional</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>Learning Progress</h2>
+          <p>Mark session cards as complete to visualize momentum across the immersion journey.</p>
+          <div class="progress-block">
+            <div class="progress-stat">
+              <strong id="progressPercent">0%</strong>
+              <span id="progressLabel">0 of 15 sessions completed</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" id="overallProgress"></div>
+            </div>
+          </div>
+          <div class="week-mini-list" id="weekProgressList"></div>
+        </section>
+
+        <section class="panel">
+          <h3>Jump to a Week</h3>
+          <p>Use the quick navigation to move from manager prep to immersion, hackathon, and demos.</p>
+          <div class="legend">
+            <a class="jump-chip" href="#week-0">Week 0</a>
+            <a class="jump-chip" href="#week-1">Week 1</a>
+            <a class="jump-chip" href="#week-2">Week 2</a>
+            <a class="jump-chip" href="#week-3">Week 3</a>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Resource Legend</h3>
+          <p>Every session card can include one or more resource types.</p>
+          <div class="legend">
+            <span class="legend-item recording">ðŸŽ¬ Recording</span>
+            <span class="legend-item presentation">ðŸ“Š Presentation</span>
+            <span class="legend-item practice">ðŸ› ï¸ Practice</span>
+            <span class="legend-item additional">ðŸ”— Additional Links</span>
+          </div>
+        </section>
+      </aside>
+
+      <main style="display:grid; gap:28px;">
+        <section class="framework-section" id="framework">
+          <div class="section-heading">
+            <div>
+              <div class="kicker">Framework</div>
+              <h2>What Are You Actually Making?</h2>
+              <p>What shape is your idea? Find your form, then pick your tool.</p>
+            </div>
+            <div class="framework-note">â€” Ben Weigel</div>
+          </div>
+          <div class="framework-grid">
+            <article class="framework-card" style="--accent:#E74C3C;">
+              <div class="framework-top">
+                <div>
+                  <div class="framework-title" style="color:#E74C3C;">PROMPT</div>
+                  <p>You need it once. You ask it yourself, right now.</p>
+                </div>
+                <span class="status-pill" style="background:rgba(231,76,60,0.12); color:#b43c2c;">Level 1</span>
+              </div>
+              <div class="example-box"><strong>Example:</strong> â€œReword this email to sound friendlier.â€</div>
+              <div class="framework-tools">
+                <span class="tool-chip">Basically any tool</span>
+              </div>
+            </article>
+
+            <article class="framework-card" style="--accent:#27AE60;">
+              <div class="framework-top">
+                <div>
+                  <div class="framework-title" style="color:#27AE60;">INSTRUCTION</div>
+                  <p>You want AI to always behave a certain way, without repeating yourself.</p>
+                </div>
+                <span class="status-pill" style="background:rgba(39,174,96,0.12); color:#1f7d48;">Level 2</span>
+              </div>
+              <div class="example-box"><strong>Example:</strong> â€œAlways reply in plain English â€” no jargon.â€</div>
+              <div class="framework-tools">
+                <span class="tool-chip">M365 Copilot custom instructions</span>
+                <span class="tool-chip">GCHP in VSCode</span>
+                <span class="tool-chip">Copilot CLI</span>
+                <span class="tool-chip">Scout (fka Scout)</span>
+              </div>
+            </article>
+
+            <article class="framework-card" style="--accent:#F39C12;">
+              <div class="framework-top">
+                <div>
+                  <div class="framework-title" style="color:#F39C12;">SKILL</div>
+                  <p>Same task, over and over â€” but you still kick it off each time.</p>
+                </div>
+                <span class="status-pill" style="background:rgba(243,156,18,0.14); color:#9c6504;">Level 3</span>
+              </div>
+              <div class="example-box"><strong>Example:</strong> A saved â€œweekly status emailâ€ you run every Friday.</div>
+              <div class="framework-tools">
+                <span class="tool-chip">M365/Bizchat declarative Agent</span>
+                <span class="tool-chip">Copilot Studio (simple)</span>
+                <span class="tool-chip">Scout</span>
+              </div>
+            </article>
+
+            <article class="framework-card" style="--accent:#3498DB;">
+              <div class="framework-top">
+                <div>
+                  <div class="framework-title" style="color:#3498DB;">WORKFLOW</div>
+                  <p>Same job, runs without you â€” something triggers and it goes.</p>
+                </div>
+                <span class="status-pill" style="background:rgba(52,152,219,0.14); color:#1f6fa5;">Level 4</span>
+              </div>
+              <div class="example-box"><strong>Example:</strong> Every Monday 9am: my unread email â†’ a digest.</div>
+              <div class="framework-tools">
+                <span class="tool-chip">Power Automate</span>
+                <span class="tool-chip">Copilot Studio (with actions)</span>
+                <span class="tool-chip">Scout</span>
+                <span class="tool-chip">GitHub Actions (CLI + GHCP)</span>
+              </div>
+            </article>
+
+            <article class="framework-card" style="--accent:#E67E22;">
+              <div class="framework-top">
+                <div>
+                  <div class="framework-title" style="color:#E67E22;">AGENT</div>
+                  <p>The steps aren't fixed. You give the goal; AI finds the path.</p>
+                </div>
+                <span class="status-pill" style="background:rgba(230,126,34,0.14); color:#b15f17;">Level 5</span>
+              </div>
+              <div class="example-box"><strong>Example:</strong> â€œPlan the offsiteâ€ â€” it books the room, drafts the agenda.</div>
+              <div class="framework-tools">
+                <span class="tool-chip">Copilot Studio</span>
+                <span class="tool-chip">Scout</span>
+                <span class="tool-chip">Copilot CLI</span>
+                <span class="tool-chip">GHCP in VSCode (agent mode)</span>
+              </div>
+            </article>
+
+            <article class="framework-card" style="--accent:#9B59B6;">
+              <div class="framework-top">
+                <div>
+                  <div class="framework-title" style="color:#9B59B6;">APP</div>
+                  <p>Needs a real interface â€” state, buttons, something others can open too.</p>
+                </div>
+                <span class="status-pill" style="background:rgba(155,89,182,0.14); color:#7d3c98;">Level 6</span>
+              </div>
+              <div class="example-box"><strong>Example:</strong> A drag-and-drop priority board you reuse weekly.</div>
+              <div class="framework-tools">
+                <span class="tool-chip">GHCP in VSCode</span>
+                <span class="tool-chip">Copilot CLI</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="weeks-section">
+          <div class="section-heading">
+            <div>
+              <div class="kicker">Curriculum</div>
+              <h2>Week-by-Week Learning Path</h2>
+              <p>Expand each week to explore every day, session, recording, presentation, and practice experience.</p>
+            </div>
+          </div>
+
+          <div class="accordion" id="weeksAccordion">
+            <article class="week-card open" id="week-0" style="--week-accent: var(--week0);" data-week="week-0">
+              <button class="week-header" aria-expanded="true">
+                <div>
+                  <div class="week-title-row">
+                    <span class="week-pill">Week 0</span>
+                    <h3>Manager &amp; Lead Preparation</h3>
+                  </div>
+                  <p class="week-summary">1â€“2 weeks prior â€¢ Prepare managers and leads to support AI-First teams before immersion begins.</p>
+                  <div class="week-meta">
+                    <span class="tag" style="background:rgba(100,116,139,0.12); color:var(--week0);">Slate / Gray</span>
+                    <span class="tag" style="background:#f5f8fc; color:var(--muted);">2 preparation sessions</span>
+                  </div>
+                </div>
+                <span class="week-toggle">âŒ„</span>
+              </button>
+              <div class="week-content">
+                <div class="week-inner">
+                  <div class="day-grid">
+                    <div class="day-card">
+                      <div class="day-top">
+                        <div>
+                          <h4 class="day-title">Preparation Sessions</h4>
+                          <p class="muted">Pre-immersion orientation for managers and leads.</p>
+                        </div>
+                      </div>
+                      <div class="session-grid">
+                        <article class="session-card" data-session-id="week0-intro-manager" data-week="week-0" data-resource-types="recording presentation" data-search="week 0 intro into camp air manager kickoff prepare managers support ai-first teams cohort 2 cohort 3 presentation recording">
+                          <div class="session-head">
+                            <div>
+                              <h5 class="session-title">Intro into Camp AIR (Manager Kickoff)</h5>
+                              <p class="session-purpose">Prepare managers for their role in supporting AI-First teams during Camp AIR.</p>
+                            </div>
+                            <button class="complete-toggle" type="button" title="Mark complete" aria-label="Mark Intro into Camp AIR complete">âœ“</button>
+                          </div>
+                          <div class="cohort-tabs" role="tablist" aria-label="Cohort content tabs">
+                            <button class="cohort-tab active" data-tab="w0s1-c2">Cohort 2</button>
+                            <button class="cohort-tab" data-tab="w0s1-c3">Cohort 3</button>
+                          </div>
+                          <div class="cohort-panel active" data-panel="w0s1-c2">
+                            <div class="resource-list">
+                              <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Camp AIR CoreAI Manager Kickoff</strong><span>Cohort 2 recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+                              <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>Camp AIR Manager Kickoff deck_Core AI_WIP.pptx</strong><span>Cohort 2 presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            </div>
+                          </div>
+                          <div class="cohort-panel" data-panel="w0s1-c3">
+                            <div class="resource-list">
+                              <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Camp AIR CoreAI Manager Kickoff</strong><span>Cohort 3 recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+                              <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>Camp AIR Manager Kickoff deck_Core AI_WIP.pptx</strong><span>Cohort 3 presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            </div>
+                          </div>
+                        </article>
+
+                        <article class="session-card" data-session-id="week0-gemba-orientation" data-week="week-0" data-resource-types="recording presentation" data-search="week 0 pre-gemba walk orientation planning gemba methodology managers leads observing improving ai workflows cohort 2 cohort 3">
+                          <div class="session-head">
+                            <div>
+                              <h5 class="session-title">Pre-Gemba Walk Orientation &amp; Planning</h5>
+                              <p class="session-purpose">Orient managers and leads on the Gemba Walk methodology for observing and improving AI workflows.</p>
+                            </div>
+                            <button class="complete-toggle" type="button" title="Mark complete" aria-label="Mark Pre-Gemba Walk Orientation complete">âœ“</button>
+                          </div>
+                          <div class="cohort-tabs" role="tablist" aria-label="Cohort content tabs">
+                            <button class="cohort-tab active" data-tab="w0s2-c2">Cohort 2</button>
+                            <button class="cohort-tab" data-tab="w0s2-c3">Cohort 3</button>
+                          </div>
+                          <div class="cohort-panel active" data-panel="w0s2-c2">
+                            <div class="resource-list">
+                              <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Camp AIR â€“ Pre-Gemba Walk Orientation &amp; Planning</strong><span>Cohort 2 recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+                              <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>Camp AIR - Gemba Walk Guide.pptx</strong><span>Cohort 2 presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            </div>
+                          </div>
+                          <div class="cohort-panel" data-panel="w0s2-c3">
+                            <div class="resource-list">
+                              <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Camp AIR â€“ Pre-Gemba Walk Orientation &amp; Planning</strong><span>Same recording as Cohort 2</span></div></div><span class="arrow">â†—</span></a>
+                              <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>Camp AIR - Gemba Walk Guide.pptx</strong><span>Same presentation as Cohort 2</span></div></div><span class="arrow">â†—</span></a>
+                            </div>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="week-card" id="week-1" style="--week-accent: var(--week1);" data-week="week-1">
+              <button class="week-header" aria-expanded="false">
+                <div>
+                  <div class="week-title-row">
+                    <span class="week-pill">Week 1</span>
+                    <h3>Immersion Week</h3>
+                  </div>
+                  <p class="week-summary">A focused tool-learning sprint spanning foundations, MCP, agency, Responsible AI, and hackathon prep.</p>
+                  <div class="week-meta">
+                    <span class="tag" style="background:rgba(0,120,212,0.12); color:var(--week1);">Blue</span>
+                    <span class="tag" style="background:#f5f8fc; color:var(--muted);">5 days</span>
+                    <span class="tag" style="background:#f5f8fc; color:var(--muted);">11 session cards</span>
+                  </div>
+                </div>
+                <span class="week-toggle">âŒ„</span>
+              </button>
+              <div class="week-content">
+                <div class="week-inner">
+                  <div class="day-grid">
+                    <div class="day-card">
+                      <div class="day-top">
+                        <div>
+                          <h4 class="day-title">Day 1: Kickoff &amp; Foundations</h4>
+                          <p class="muted">Start with mindset, then dive into GitHub Copilot App and CLI.</p>
+                        </div>
+                      </div>
+                      <div class="session-grid">
+                        <article class="session-card" data-session-id="week1-day1-session1" data-week="week-1" data-resource-types="recording presentation" data-search="day 1 session 1 kickoff mindset workflow foundations recording presentation aparna">
+                          <div class="session-head"><div><h5 class="session-title">Kickoff &amp; Mindset/Workflow</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day1_Session1_Kickoff_And_Mindset_Workflow.mp4</strong><span>Kickoff recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>(Aparna to insert link)</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                        <article class="session-card" data-session-id="week1-day1-session2" data-week="week-1" data-resource-types="recording presentation practice" data-search="day 1 session 2 github copilot app ghcp app practice presentation">
+                          <div class="session-head"><div><h5 class="session-title">GitHub Copilot App</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day1_Session2_GHCP_App.mp4</strong><span>Session recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>GH Copilot App</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>PRACTICE GH Copilot App</strong><span>Hands-on practice</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                        <article class="session-card" data-session-id="week1-day1-session3" data-week="week-1" data-resource-types="recording presentation practice" data-search="day 1 session 3 github copilot cli ghcp cli practice presentation">
+                          <div class="session-head"><div><h5 class="session-title">GitHub Copilot CLI</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day1_Session3_GHCP_CLI.mp4</strong><span>Session recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>GH Copilot CLI</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>PRACTICE GH Copilot CLI</strong><span>Hands-on practice</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                        <article class="session-card" data-session-id="week1-day1-session4" data-week="week-1" data-resource-types="recording presentation" data-search="day 1 session 4 recap share-out shareout aparna">
+                          <div class="session-head"><div><h5 class="session-title">Recap &amp; Share-out</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day1_Session4_RecapAndShareout.mp4</strong><span>Recap recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>(Aparna)</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+
+                    <div class="day-card">
+                      <div class="day-top">
+                        <div>
+                          <h4 class="day-title">Day 2: MCP Servers &amp; Clawpilot</h4>
+                          <p class="muted">Build capability with MCP Servers and Clawpilot/Scout workflows.</p>
+                        </div>
+                      </div>
+                      <div class="session-grid">
+                        <article class="session-card" data-session-id="week1-day2-session1" data-week="week-1" data-resource-types="recording" data-search="day 2 recap previous day">
+                          <div class="session-head"><div><h5 class="session-title">Recap of Previous Day</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day2_Session1_RecapOfPreviousDay.mp4</strong><span>Recap recording</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                        <article class="session-card" data-session-id="week1-day2-session2" data-week="week-1" data-resource-types="recording presentation practice" data-search="day 2 mcp servers practice presentation">
+                          <div class="session-head"><div><h5 class="session-title">MCP Servers</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day2_Session2_MCPServer.mp4</strong><span>Session recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>PRACTICE MCP Servers</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>MCP Servers</strong><span>Practice resource</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                        <article class="session-card" data-session-id="week1-day2-session3" data-week="week-1" data-resource-types="recording practice" data-search="day 2 clawpilot scout practice">
+                          <div class="session-head"><div><h5 class="session-title">Clawpilot/Scout</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day2_Session3_ClawpilotScout.mp4</strong><span>Session recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>Clawpilot</strong><span>Practice resource</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>PRACTICE Clawpilot</strong><span>Hands-on practice</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+
+                    <div class="day-card">
+                      <div class="day-top">
+                        <div>
+                          <h4 class="day-title">Day 3: Agency, 1ES Tools, Bluebird &amp; Vibe Coding</h4>
+                          <p class="muted">A high-velocity day spanning AI agency, enterprise tooling, Bluebird, and vibe coding.</p>
+                        </div>
+                      </div>
+                      <div class="session-grid">
+                        <article class="session-card" data-session-id="week1-day3-session1" data-week="week-1" data-resource-types="recording practice" data-search="day 3 agency practice">
+                          <div class="session-head"><div><h5 class="session-title">Agency</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day3_Session1_Agency.mp4</strong><span>Session recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>PRACTICE Agency</strong><span>Hands-on practice</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                        <article class="session-card" data-session-id="week1-day3-session2" data-week="week-1" data-resource-types="recording presentation practice" data-search="day 3 1es tool offerings practice presentation">
+                          <div class="session-head"><div><h5 class="session-title">1ES Tool Offerings</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day3_Session2_1ESTools.mp4</strong><span>Session recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>1ES Tool Offerings</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>PRACTICE 1ES Tool Offerings</strong><span>Hands-on practice</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                        <article class="session-card" data-session-id="week1-day3-session3" data-week="week-1" data-resource-types="recording presentation practice" data-search="day 3 bluebird dead space practice presentation">
+                          <div class="session-head"><div><h5 class="session-title">Bluebird</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <p class="card-subtle">Note: recording includes ~30 minutes of dead space at the end.</p>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day3_Session3_Bluebird.mp4</strong><span>Session recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>Bluebird</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>PRACTICE Bluebird</strong><span>Hands-on practice</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                        <article class="session-card" data-session-id="week1-day3-session4" data-week="week-1" data-resource-types="recording presentation practice" data-search="day 3 vibe coding practice presentation">
+                          <div class="session-head"><div><h5 class="session-title">Vibe Coding</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day3_Session4_VibeCoding.mp4</strong><span>Session recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>Vibe Coding</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>PRACTICE Vibe Coding</strong><span>Hands-on practice</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+
+                    <div class="day-card">
+                      <div class="day-top">
+                        <div>
+                          <h4 class="day-title">Day 4: Responsible AI &amp; Evaluation</h4>
+                          <p class="muted">Explore governance, standards, and practical evaluation for AI systems.</p>
+                        </div>
+                      </div>
+                      <div class="session-grid">
+                        <article class="session-card" data-session-id="week1-day4-session1" data-week="week-1" data-resource-types="recording practice additional" data-search="day 4 responsible ai standard rais developer chapter foundry agent control specification practice additional links">
+                          <div class="session-head"><div><h5 class="session-title">Responsible AI</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day4_Session1_ResponsibleAI.mp4</strong><span>Live demo session recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>PRACTICE Responsible AI</strong><span>Hands-on practice</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                          <div class="additional-links-list">
+                            <a href="#" class="additional-link" data-type="additional"><div class="resource-main"><span class="badge additional">ðŸ”— Additional</span><div class="resource-text"><strong>Responsible AI Standard</strong><span>Reference material</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="additional-link" data-type="additional"><div class="resource-main"><span class="badge additional">ðŸ”— Additional</span><div class="resource-text"><strong>Responsible AI Standard (RAIS) Developer Chapter - Liquid</strong><span>Developer guidance</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="additional-link" data-type="additional"><div class="resource-main"><span class="badge additional">ðŸ”— Additional</span><div class="resource-text"><strong>Agent Control Specification: Portable runtime governance for AI Agents</strong><span>Governance reference</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="additional-link" data-type="additional"><div class="resource-main"><span class="badge additional">ðŸ”— Additional</span><div class="resource-text"><strong>Foundry video</strong><span>https://youtu.be/gS3dvMzm89M?si=wkn3gk7dD4f_Khkv</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                          <p class="card-subtle">Presentation: No PPT, live demo (refer to recording).</p>
+                        </article>
+                        <article class="session-card" data-session-id="week1-day4-session2" data-week="week-1" data-resource-types="recording presentation practice additional" data-search="day 4 ai system evaluation workshop practice presentation additional link youtube">
+                          <div class="session-head"><div><h5 class="session-title">AI System Evaluation Workshop</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Day4_Session2_Evaluation.mp4</strong><span>Workshop recording</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>AI System Evaluation Workshop</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="practice"><div class="resource-main"><span class="badge practice">ðŸ› ï¸ Practice</span><div class="resource-text"><strong>PRACTICE AI System Evaluation Workshop</strong><span>Hands-on practice</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                          <div class="additional-links-list">
+                            <a href="#" class="additional-link" data-type="additional"><div class="resource-main"><span class="badge additional">ðŸ”— Additional</span><div class="resource-text"><strong>Additional Evaluation Video</strong><span>https://youtu.be/w2Fg0dxf-xo?si=IwJEC-vq3h1eJKVY</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+
+                    <div class="day-card">
+                      <div class="day-top">
+                        <div>
+                          <h4 class="day-title">Day 5: Hackathon Prep &amp; Demos</h4>
+                          <p class="muted">Final day of immersion week. Focus shifts from learning tools â†’ preparing for hackathon week and real workflow changes.</p>
+                        </div>
+                      </div>
+                      <div class="session-grid">
+                        <article class="session-card" data-session-id="week1-day5-session1" data-week="week-1" data-resource-types="recording" data-search="day 5 hackathon prep demos final day immersion camp air coreai june cohort friday june 12 teams">
+                          <div class="session-head"><div><h5 class="session-title">Hackathon Prep &amp; Demos</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Camp AIR: CoreAI June Cohort Friday, June 12 | Meeting | Microsoft Teams</strong><span>Recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                          <p class="card-subtle">Presentation: N/A â€¢ Practice: N/A</p>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="week-card" id="week-2" style="--week-accent: var(--week2);" data-week="week-2">
+              <button class="week-header" aria-expanded="false">
+                <div>
+                  <div class="week-title-row">
+                    <span class="week-pill">Week 2</span>
+                    <h3>Hackathon &amp; Gemba Walk</h3>
+                  </div>
+                  <p class="week-summary">A structured check-in week focused on workflow hacking, coaching, and the Gemba methodology.</p>
+                  <div class="week-meta">
+                    <span class="tag" style="background:rgba(39,174,96,0.12); color:var(--week2);">Green</span>
+                    <span class="tag" style="background:#f5f8fc; color:var(--muted);">1 deep-dive session</span>
+                  </div>
+                </div>
+                <span class="week-toggle">âŒ„</span>
+              </button>
+              <div class="week-content">
+                <div class="week-inner">
+                  <div class="day-grid">
+                    <div class="day-card">
+                      <div class="day-top">
+                        <div>
+                          <h4 class="day-title">Gemba Walk Deep Dive</h4>
+                          <p class="muted">Check-in for managers and teams working with a Workforce Transformation expert to shape the workflows they are hacking during hackathon week.</p>
+                        </div>
+                      </div>
+                      <div class="session-grid">
+                        <article class="session-card" data-session-id="week2-gemba-deep-dive" data-week="week-2" data-resource-types="recording presentation" data-search="week 2 gemba walk deep dive managers teams workforce transformation expert hackathon week">
+                          <div class="session-head"><div><h5 class="session-title">Gemba Walk Deep Dive</h5></div><button class="complete-toggle" type="button">âœ“</button></div>
+                          <p class="session-purpose">Follows the Gemba methodology to develop the workflows teams are building during hackathon week.</p>
+                          <div class="resource-list">
+                            <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>CoreAI Camp AIR Gemba walk deep dive</strong><span>Recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            <a href="#" class="resource-link" data-type="presentation"><div class="resource-main"><span class="badge presentation">ðŸ“Š Presentation</span><div class="resource-text"><strong>(Aparna to insert link)</strong><span>Presentation placeholder</span></div></div><span class="arrow">â†—</span></a>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="week-card" id="week-3" style="--week-accent: var(--week3);" data-week="week-3">
+              <button class="week-header" aria-expanded="false">
+                <div>
+                  <div class="week-title-row">
+                    <span class="week-pill">Week 3</span>
+                    <h3>Demo Days</h3>
+                  </div>
+                  <p class="week-summary">Teams present their hackathon projects and workflow transformations.</p>
+                  <div class="week-meta">
+                    <span class="tag" style="background:rgba(124,58,237,0.12); color:var(--week3);">Purple</span>
+                    <span class="tag" style="background:#f5f8fc; color:var(--muted);">Cohort 2 + Cohort 3</span>
+                  </div>
+                </div>
+                <span class="week-toggle">âŒ„</span>
+              </button>
+              <div class="week-content">
+                <div class="week-inner">
+                  <div class="day-grid">
+                    <div class="day-card">
+                      <div class="day-top">
+                        <div>
+                          <h4 class="day-title">Demo Days</h4>
+                          <p class="muted">Celebrate what teams made and how workflows changed during Camp AIR.</p>
+                        </div>
+                      </div>
+                      <div class="session-grid">
+                        <article class="session-card" data-session-id="week3-demo-days" data-week="week-3" data-resource-types="recording" data-search="week 3 demo days cohort 2 cohort 3 hackathon projects workflow transformations">
+                          <div class="session-head">
+                            <div>
+                              <h5 class="session-title">Demo Days</h5>
+                              <p class="session-purpose">Teams present their hackathon projects and workflow transformations.</p>
+                            </div>
+                            <button class="complete-toggle" type="button">âœ“</button>
+                          </div>
+                          <div class="cohort-tabs" role="tablist" aria-label="Demo day cohort tabs">
+                            <button class="cohort-tab active" data-tab="w3-c2">Cohort 2</button>
+                            <button class="cohort-tab" data-tab="w3-c3">Cohort 3</button>
+                          </div>
+                          <div class="cohort-panel active" data-panel="w3-c2">
+                            <div class="resource-list">
+                              <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Cohort 2, Day 1 Recording</strong><span>Recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+                              <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Cohort 2, Day 2 Recording</strong><span>Recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            </div>
+                          </div>
+                          <div class="cohort-panel" data-panel="w3-c3">
+                            <div class="resource-list">
+                              <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Cohort 3, Day 1 Recording</strong><span>Recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+                              <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><span class="badge recording">ðŸŽ¬ Recording</span><div class="resource-text"><strong>Cohort 3, Day 2 Recording</strong><span>Recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+                            </div>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="empty-state" id="emptyState">No sessions match your current search and resource filters. Try clearing the search or choosing â€œAllâ€.</div>
+        </section>
+
+        <section class="notable-section" id="notable-recordings">
+          <div class="section-heading">
+            <div>
+              <div class="kicker">Highlights</div>
+              <h2>Notable Recordings</h2>
+              <p>Quick access to standout moments worth revisiting.</p>
+            </div>
+          </div>
+          <article class="notable-card">
+            <div class="session-head">
+              <div>
+                <h5 class="session-title">Mindset from Scott Hanselman (Cohort 2)</h5>
+                <p class="session-purpose">A notable mindset-building recording from the Camp AIR journey.</p>
+              </div>
+              <span class="badge recording">ðŸŽ¬ Recording</span>
+            </div>
+            <div class="resource-list" style="margin-top: 8px;">
+              <a href="#" class="resource-link" data-type="recording"><div class="resource-main"><div class="resource-text"><strong>Mindset from Scott Hanselman (Cohort 2)</strong><span>Recording placeholder</span></div></div><span class="arrow">â†—</span></a>
+            </div>
+          </article>
+        </section>
+
+        <footer class="footer">
+          <div class="section-heading" style="margin-bottom: 16px;">
+            <div>
+              <div class="kicker">Explore More</div>
+              <h2 style="margin-bottom: 6px;">Camp AIR Resources</h2>
+              <p>Additional portals and submission channels for the Workforce Acceleration Team.</p>
+            </div>
+          </div>
+          <div class="footer-links">
+            <a class="footer-link" href="https://jillethelbah.github.io/camp-air-in-a-box-v2/" target="_blank" rel="noreferrer">Camp AIR in a Box site</a>
+            <a class="footer-link" href="https://nowlents.github.io/campAIR-WFA/" target="_blank" rel="noreferrer">Camp AIR Deliverables Portal</a>
+            <a class="footer-link" href="https://forms.microsoft.com/r/cmPU5hzcYD" target="_blank" rel="noreferrer">Materials submission form</a>
+          </div>
+          <div class="muted">Â© 2025 Microsoft Workforce Acceleration Team</div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const weekCards = Array.from(document.querySelectorAll('.week-card'));
+      const allSessionCards = Array.from(document.querySelectorAll('.session-card'));
+      const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+      const searchInput = document.getElementById('searchInput');
+      const emptyState = document.getElementById('emptyState');
+      const overallProgress = document.getElementById('overallProgress');
+      const progressPercent = document.getElementById('progressPercent');
+      const progressLabel = document.getElementById('progressLabel');
+      const weekProgressList = document.getElementById('weekProgressList');
+      const STORAGE_KEY = 'camp-air-learning-hub-progress';
+
+      function updateWeekContentHeight(weekCard) {
+        const content = weekCard.querySelector('.week-content');
+        if (!content) return;
+        content.style.maxHeight = weekCard.classList.contains('open') ? content.scrollHeight + 'px' : '0px';
+      }
+
+      function openWeek(weekCard) {
+        weekCard.classList.add('open');
+        const header = weekCard.querySelector('.week-header');
+        if (header) header.setAttribute('aria-expanded', 'true');
+        updateWeekContentHeight(weekCard);
+      }
+
+      function closeWeek(weekCard) {
+        weekCard.classList.remove('open');
+        const header = weekCard.querySelector('.week-header');
+        if (header) header.setAttribute('aria-expanded', 'false');
+        updateWeekContentHeight(weekCard);
+      }
+
+      weekCards.forEach((card, index) => {
+        const header = card.querySelector('.week-header');
+        if (!header) return;
+        if (index === 0) {
+          openWeek(card);
+        } else {
+          closeWeek(card);
+        }
+        header.addEventListener('click', () => {
+          const isOpen = card.classList.contains('open');
+          if (isOpen) {
+            closeWeek(card);
+          } else {
+            openWeek(card);
+          }
+        });
+      });
+
+      window.addEventListener('resize', () => weekCards.forEach(updateWeekContentHeight));
+
+      document.querySelectorAll('.cohort-tabs').forEach((tabList) => {
+        tabList.addEventListener('click', (event) => {
+          const target = event.target.closest('.cohort-tab');
+          if (!target) return;
+          const sessionCard = tabList.closest('.session-card');
+          const tabName = target.getAttribute('data-tab');
+          tabList.querySelectorAll('.cohort-tab').forEach(tab => tab.classList.remove('active'));
+          target.classList.add('active');
+          sessionCard.querySelectorAll('.cohort-panel').forEach(panel => {
+            panel.classList.toggle('active', panel.getAttribute('data-panel') === tabName);
+          });
+          weekCards.forEach(updateWeekContentHeight);
+        });
+      });
+
+      function loadProgress() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveProgress(data) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
+
+      function applyCompletionState() {
+        const progress = loadProgress();
+        allSessionCards.forEach(card => {
+          const id = card.dataset.sessionId;
+          const isComplete = Boolean(progress[id]);
+          card.classList.toggle('completed', isComplete);
+        });
+        updateProgressUI();
+      }
+
+      function updateProgressUI() {
+        const completedCards = allSessionCards.filter(card => card.classList.contains('completed'));
+        const total = allSessionCards.length;
+        const done = completedCards.length;
+        const percent = total ? Math.round((done / total) * 100) : 0;
+        overallProgress.style.width = percent + '%';
+        progressPercent.textContent = percent + '%';
+        progressLabel.textContent = done + ' of ' + total + ' sessions completed';
+
+        const weekNames = {
+          'week-0': { label: 'Week 0', color: '#64748b' },
+          'week-1': { label: 'Week 1', color: '#0078d4' },
+          'week-2': { label: 'Week 2', color: '#27ae60' },
+          'week-3': { label: 'Week 3', color: '#7c3aed' }
+        };
+
+        weekProgressList.innerHTML = '';
+        Object.keys(weekNames).forEach(weekKey => {
+          const weekCards = allSessionCards.filter(card => card.dataset.week === weekKey);
+          const weekDone = weekCards.filter(card => card.classList.contains('completed')).length;
+          const meta = weekNames[weekKey];
+          const row = document.createElement('div');
+          row.className = 'week-mini';
+          row.innerHTML = '<span class="week-dot" style="background:' + meta.color + '"></span>' +
+            '<strong>' + meta.label + '</strong>' +
+            '<span>' + weekDone + '/' + weekCards.length + '</span>';
+          weekProgressList.appendChild(row);
+        });
+      }
+
+      document.querySelectorAll('.complete-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+          const card = button.closest('.session-card');
+          const id = card.dataset.sessionId;
+          const progress = loadProgress();
+          if (progress[id]) {
+            delete progress[id];
+          } else {
+            progress[id] = true;
+          }
+          saveProgress(progress);
+          applyCompletionState();
+        });
+      });
+
+      let activeFilter = 'all';
+
+      function applyFilters() {
+        const query = (searchInput.value || '').trim().toLowerCase();
+        let visibleCount = 0;
+
+        allSessionCards.forEach(card => {
+          const searchText = (card.dataset.search || '').toLowerCase();
+          const resourceTypes = (card.dataset.resourceTypes || '').toLowerCase().split(/\s+/).filter(Boolean);
+          const matchesQuery = !query || searchText.includes(query);
+          const matchesFilter = activeFilter === 'all' || resourceTypes.includes(activeFilter);
+          const show = matchesQuery && matchesFilter;
+          card.classList.toggle('hidden', !show);
+          if (show) visibleCount += 1;
+        });
+
+        document.querySelectorAll('.day-card').forEach(day => {
+          const visible = day.querySelector('.session-card:not(.hidden)');
+          day.style.display = visible ? '' : 'none';
+        });
+
+        weekCards.forEach(week => {
+          const visible = week.querySelector('.session-card:not(.hidden)');
+          week.style.display = visible ? '' : 'none';
+          if (visible && !week.classList.contains('open')) {
+            openWeek(week);
+          }
+          updateWeekContentHeight(week);
+        });
+
+        emptyState.style.display = visibleCount ? 'none' : 'block';
+      }
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          activeFilter = button.dataset.filter;
+          applyFilters();
+        });
+      });
+
+      searchInput.addEventListener('input', applyFilters);
+
+      const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+      const sections = navLinks
+        .map(link => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach(link => {
+            const active = link.getAttribute('href') === '#' + entry.target.id;
+            link.classList.toggle('active', active);
+          });
+        });
+      }, { rootMargin: '-35% 0px -55% 0px', threshold: 0.01 });
+
+      sections.forEach(section => observer.observe(section));
+
+      applyCompletionState();
+      applyFilters();
+      weekCards.forEach(updateWeekContentHeight);
+    })();
+  </script>
+</body>
+</html>
+
